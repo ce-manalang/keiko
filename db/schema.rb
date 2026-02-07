@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_07_074930) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_07_075903) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "shifts", force: :cascade do |t|
+    t.boolean "acknowledged"
+    t.datetime "created_at", null: false
+    t.datetime "end_time"
+    t.text "notes"
+    t.datetime "start_time"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_shifts_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -22,4 +33,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_07_074930) do
     t.integer "role"
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "shifts", "users"
 end
