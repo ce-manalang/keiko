@@ -1,0 +1,7 @@
+<%= turbo_stream.replace "new_shift",
+      partial: "form",
+      locals: { user: @user, shift: @user.shifts.new } %>
+
+<%= turbo_stream.replace "shifts",
+      partial: "table",
+      locals: { user: @user, shifts: @user.shifts.order(:start_time) } %>
