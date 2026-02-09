@@ -13,12 +13,16 @@
   <div class="grid grid-cols-2 gap-3">
     <div>
       <%= f.label :start_time, class: "text-sm" %>
-      <%= f.datetime_local_field :start_time, class: "w-full border rounded px-2 py-1" %>
+			<%= f.text_field :start_time,
+        data: { controller: "flatpickr" },
+        class: "w-full border rounded px-2 py-1" %>
     </div>
 
     <div>
       <%= f.label :end_time, class: "text-sm" %>
-      <%= f.datetime_local_field :end_time, class: "w-full border rounded px-2 py-1" %>
+			<%= f.text_field :end_time,
+        data: { controller: "flatpickr" },
+        class: "w-full border rounded px-2 py-1" %>
     </div>
   </div>
 
