@@ -1,0 +1,17 @@
+<%= render "devise/shared/container" do %>
+
+<h1 class="text-2xl font-semibold mb-6">
+  Shifts for <%= @user.name %>
+</h1>
+
+<!-- Turbo frame for NEW shift form -->
+<turbo-frame id="new_shift">
+  <%= render "form", user: @user, shift: @shift %>
+</turbo-frame>
+
+<!-- Turbo frame for shifts list -->
+<turbo-frame id="shifts">
+  <%= render "table", user: @user, shifts: @shifts %>
+</turbo-frame>
+
+<% end %>

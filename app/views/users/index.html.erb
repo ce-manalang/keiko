@@ -39,6 +39,10 @@
 						<td class="px-4 py-3 capitalize"><%= user.role %></td>
 
 						<td class="px-4 py-3 text-right space-x-2">
+							<%= link_to "Shifts",
+									user_shifts_path(user),
+									class: "text-indigo-600 hover:underline text-sm" %>
+
 							<%= link_to "Edit",
 									edit_user_path(user),
 									class: "text-blue-600 hover:underline" %>

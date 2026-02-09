@@ -1,0 +1,26 @@
+<table class="w-full mt-6 bg-white rounded-xl shadow overflow-hidden">
+  <thead class="bg-slate-100 text-left text-sm text-slate-600">
+    <tr>
+      <th class="px-3 py-2">Start</th>
+      <th class="px-3 py-2">End</th>
+      <th class="px-3 py-2">Notes</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody class="divide-y">
+    <% shifts.each do |shift| %>
+      <tr id="<%= dom_id(shift) %>">
+        <td class="px-3 py-2"><%= shift.start_time.strftime("%b %d %H:%M") %></td>
+        <td class="px-3 py-2"><%= shift.end_time.strftime("%b %d %H:%M") %></td>
+        <td class="px-3 py-2"><%= shift.notes %></td>
+        <td class="px-3 py-2 text-right">
+          <%= link_to "Delete",
+              user_shift_path(user, shift),
+              data: { turbo_method: :delete, turbo_confirm: "Delete shift?" },
+              class: "text-red-600 text-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

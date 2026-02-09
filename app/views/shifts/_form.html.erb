@@ -1,0 +1,33 @@
+<%= form_with model: [user, shift], class: "bg-white p-4 rounded-xl shadow space-y-3" do |f| %>
+
+  <% if shift.errors.any? %>
+    <div class="bg-red-50 border border-red-200 text-red-700 p-2 rounded text-sm">
+      <ul class="list-disc ml-5">
+        <% shift.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="grid grid-cols-2 gap-3">
+    <div>
+      <%= f.label :start_time, class: "text-sm" %>
+      <%= f.datetime_local_field :start_time, class: "w-full border rounded px-2 py-1" %>
+    </div>
+
+    <div>
+      <%= f.label :end_time, class: "text-sm" %>
+      <%= f.datetime_local_field :end_time, class: "w-full border rounded px-2 py-1" %>
+    </div>
+  </div>
+
+  <div>
+    <%= f.label :notes, class: "text-sm" %>
+    <%= f.text_area :notes, rows: 2, class: "w-full border rounded px-2 py-1" %>
+  </div>
+
+  <%= f.submit "Save Shift",
+      class: "bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-700" %>
+
+<% end %>
