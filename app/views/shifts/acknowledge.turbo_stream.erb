@@ -1,0 +1,11 @@
+<%= turbo_stream.replace @shift do %>
+  <tr id="<%= dom_id(@shift) %>">
+    <td class="px-3 py-2"><%= @shift.start_time.strftime("%b %d %H:%M") %></td>
+    <td class="px-3 py-2"><%= @shift.end_time.strftime("%b %d %H:%M") %></td>
+    <td class="px-3 py-2"><%= @shift.notes %></td>
+    <td class="px-3 py-2">
+      <span class="text-green-600 font-medium">Acknowledged</span>
+    </td>
+    <td></td>
+  </tr>
+<% end %>

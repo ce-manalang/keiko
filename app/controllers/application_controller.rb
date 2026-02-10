@@ -20,4 +20,8 @@ class ApplicationController < ActionController::Base
 
     redirect_to root_path, alert: "Not authorized."
   end
+
+  def after_sign_in_path_for(user)
+    user.scheduler? ? users_path : dashboard_path
+  end
 end

@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
+  resource :dashboard, only: :show, controller: :dashboard
   devise_for :users
   resources :users do
-    resources :shifts, except: [ :show ]
+    resources :shifts, except: [ :show ] do
+      member do
+        patch :acknowledge
+      end
+    end
   end
 
   get "home/index"
