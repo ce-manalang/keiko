@@ -1,0 +1,46 @@
+<%= render "devise/shared/container" do %>
+
+<h1 class="text-2xl font-semibold mb-6">
+  My Shifts
+</h1>
+
+<table class="w-full bg-white rounded-xl shadow overflow-hidden">
+  <thead class="bg-slate-100 text-left text-sm text-slate-600">
+    <tr>
+      <th class="px-3 py-2">Start</th>
+      <th class="px-3 py-2">End</th>
+      <th class="px-3 py-2">Notes</th>
+      <th class="px-3 py-2">Status</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody class="divide-y">
+    <% @shifts.each do |shift| %>
+      <tr id="<%= dom_id(shift) %>">
+        <td class="px-3 py-2"><%= shift.start_time.strftime("%b %d %H:%M") %></td>
+        <td class="px-3 py-2"><%= shift.end_time.strftime("%b %d %H:%M") %></td>
+        <td class="px-3 py-2"><%= shift.notes %></td>
+
+        <td class="px-3 py-2">
+          <% if shift.acknowledged? %>
+            <span class="text-green-600 font-medium">Acknowledged</span>
+          <% else %>
+            <span class="text-slate-400">Pending</span>
+          <% end %>
+        </td>
+
+        <td class="px-3 py-2 text-right">
+          <% unless shift.acknowledged? %>
+            <%= link_to "Acknowledge",
+                acknowledge_user_shift_path(shift.user, shift),
+                data: { turbo_method: :patch },
+                class: "text-indigo-600 hover:underline text-sm" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% end %>

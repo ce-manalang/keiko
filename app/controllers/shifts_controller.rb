@@ -1,5 +1,5 @@
 class ShiftsController < ApplicationController
-  before_action :require_scheduler!
+  before_action :require_scheduler!, except: :acknowledge
   before_action :set_user
   before_action :set_shift, only: %i[edit update destroy]
 
@@ -40,6 +40,16 @@ class ShiftsController < ApplicationController
     respond_to do |format|
       format.turbo_stream
       format.html { redirect_to user_shifts_path(@user), notice: "Shift deleted." }
+    end
+  end
+
+  def acknowledge
+    @shift = current_user.shifts.find(params[:id])
+    @shift.update!(acknowledged: true)
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to dashboard_path }
     end
   end
 
