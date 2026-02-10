@@ -64,3 +64,5 @@ group :development do
 end
 
 gem "devise", "~> 5.0"
+
+gem "capybara", "~> 3.40"
