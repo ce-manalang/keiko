@@ -53,6 +53,15 @@ class ShiftsController < ApplicationController
     end
   end
 
+  def show
+    @shift =
+      if current_user.scheduler?
+        Shift.find(params[:id])
+      else
+        current_user.shifts.find(params[:id])
+      end
+  end
+
   private
 
   def set_user

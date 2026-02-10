@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resource :dashboard, only: :show, controller: :dashboard
   devise_for :users
   resources :users do
-    resources :shifts, except: [ :show ] do
+    resources :shifts do
       member do
         patch :acknowledge
       end
