@@ -1,26 +1,45 @@
-<table class="w-full mt-6 bg-white rounded-xl shadow overflow-hidden">
-  <thead class="bg-slate-100 text-left text-sm text-slate-600">
-    <tr>
-      <th class="px-3 py-2">Start</th>
-      <th class="px-3 py-2">End</th>
-      <th class="px-3 py-2">Notes</th>
-      <th></th>
-    </tr>
-  </thead>
+<div class="-mx-4 mt-8 sm:-mx-0">
+	<table class="min-w-full divide-y divide-gray-300 dark:divide-white/15">
+		<thead>
+			<tr>
+				<th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0 dark:text-white">
+					<span class="hidden lg:block">Start</span>
+					<span class="lg:hidden">Schedule</span>
+				</th>
+				<th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell dark:text-white">End</th>
+				<th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Notes</th>
+				<th scope="col" class="py-3.5 pl-3 pr-4 sm:pr-0">
+					<span class="sr-only">Delete</span>
+				</th>
+			</tr>
+		</thead>
 
-  <tbody class="divide-y">
-    <% shifts.each do |shift| %>
-      <tr id="<%= dom_id(shift) %>">
-        <td class="px-3 py-2"><%= shift.start_time.strftime("%b %d %H:%M") %></td>
-        <td class="px-3 py-2"><%= shift.end_time.strftime("%b %d %H:%M") %></td>
-        <td class="px-3 py-2"><%= shift.notes %></td>
-        <td class="px-3 py-2 text-right">
-          <%= link_to "Delete",
-              user_shift_path(user, shift),
-              data: { turbo_method: :delete, turbo_confirm: "Delete shift?" },
-              class: "text-red-600 text-sm" %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+		<tbody class="divide-y divide-gray-200 bg-white dark:divide-white/10 dark:bg-gray-900">
+			<% shifts.each do |shift| %>
+				<tr id="<%= dom_id(shift) %>">
+					<td class="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-0 dark:text-white">
+						<%= shift.start_time.strftime("%b %d %H:%M") %>
+						<dl class="font-normal lg:hidden">
+							<dt class="sr-only">End</dt>
+							<dd class="mt-1 truncate text-gray-700 dark:text-gray-300"><%= shift.end_time.strftime("%b %d %H:%M") %></dd>
+							<dt class="sr-only sm:hidden">Notes</dt>
+							<dd class="mt-1 truncate text-gray-500 sm:hidden dark:text-gray-400"><%= shift.notes %></dd>
+						</dl>
+					</td>
+					<td class="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell dark:text-gray-400"><%= shift.end_time.strftime("%b %d %H:%M") %></td>
+					<td class="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell dark:text-gray-400"><%= shift.notes %></td>
+					<td class="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+						<%= link_to user_shift_path(user, shift),
+								data: { turbo_method: :delete, turbo_confirm: "Delete shift?" },
+								class: "inline-flex items-center gap-x-1.5 rounded-md bg-red-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 dark:bg-red-500 dark:shadow-none dark:hover:bg-red-400 dark:focus-visible:outline-red-500" do %>
+							Delete
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+							</svg>
+						<% end %>
+					</td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>

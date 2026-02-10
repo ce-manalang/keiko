@@ -1,46 +1,68 @@
 <%= render "devise/shared/container" do %>
 
-<h1 class="text-2xl font-semibold mb-6">
-  My Shifts
-</h1>
+<div class="px-4 sm:px-6 lg:px-8">
+  <div class="sm:flex sm:items-center">
+    <div class="sm:flex-auto">
+      <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">My Shifts</h1>
+      <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">Review your upcoming shifts and acknowledge them to confirm your schedule.</p>
+    </div>
+  </div>
+  <div class="-mx-4 mt-8 sm:-mx-0">
+    <table class="min-w-full divide-y divide-gray-300 dark:divide-white/15">
+      <thead>
+        <tr>
+          <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0 dark:text-white">
+						<span class="hidden lg:block">Start</span>
+						<span class="lg:hidden">Schedule</span>
+					</th>
+          <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 lg:table-cell dark:text-white">End</th>
+          <th scope="col" class="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 sm:table-cell dark:text-white">Notes</th>
+          <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Status</th>
+          <th scope="col" class="py-3.5 pl-3 pr-4 sm:pr-0">
+            <span class="sr-only">Acknowledge</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200 bg-white dark:divide-white/10 dark:bg-gray-900">
+				<% @shifts.each do |shift| %>
+					<tr id="<%= dom_id(shift) %>">
+						<td class="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-0 dark:text-white">
+							<%= shift.start_time.strftime("%b %d %H:%M") %>
+							<dl class="font-normal lg:hidden">
+								<dt class="sr-only">End</dt>
+								<dd class="mt-1 truncate text-gray-700 dark:text-gray-300"><%= shift.end_time.strftime("%b %d %H:%M") %></dd>
+								<dt class="sr-only sm:hidden">Notes</dt>
+								<dd class="mt-1 truncate text-gray-500 sm:hidden dark:text-gray-400"><%= shift.notes %></dd>
+							</dl>
+						</td>
+						<td class="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell dark:text-gray-400"><%= shift.end_time.strftime("%b %d %H:%M") %></td>
+						<td class="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell dark:text-gray-400"><%= shift.notes %></td>
 
-<table class="w-full bg-white rounded-xl shadow overflow-hidden">
-  <thead class="bg-slate-100 text-left text-sm text-slate-600">
-    <tr>
-      <th class="px-3 py-2">Start</th>
-      <th class="px-3 py-2">End</th>
-      <th class="px-3 py-2">Notes</th>
-      <th class="px-3 py-2">Status</th>
-      <th></th>
-    </tr>
-  </thead>
+						<td class="px-3 py-4 text-sm text-gray-500 dark:text-gray-400">
+							<% if shift.acknowledged? %>
+								<span class="inline-flex items-center rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-700 dark:bg-green-400/10 dark:text-green-400">Acknowledged</span>
+							<% else %>
+								<span class="inline-flex items-center rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-600 dark:bg-gray-400/10 dark:text-gray-400">Pending</span>
+							<% end %>
+						</td>
 
-  <tbody class="divide-y">
-    <% @shifts.each do |shift| %>
-      <tr id="<%= dom_id(shift) %>">
-        <td class="px-3 py-2"><%= shift.start_time.strftime("%b %d %H:%M") %></td>
-        <td class="px-3 py-2"><%= shift.end_time.strftime("%b %d %H:%M") %></td>
-        <td class="px-3 py-2"><%= shift.notes %></td>
-
-        <td class="px-3 py-2">
-          <% if shift.acknowledged? %>
-            <span class="text-green-600 font-medium">Acknowledged</span>
-          <% else %>
-            <span class="text-slate-400">Pending</span>
-          <% end %>
-        </td>
-
-        <td class="px-3 py-2 text-right">
-          <% unless shift.acknowledged? %>
-            <%= link_to "Acknowledge",
-                acknowledge_user_shift_path(shift.user, shift),
-                data: { turbo_method: :patch },
-                class: "text-indigo-600 hover:underline text-sm" %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+						<td class="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+							<% unless shift.acknowledged? %>
+                <%= link_to acknowledge_user_shift_path(shift.user, shift),
+                    data: { turbo_method: :patch },
+                    class: "inline-flex items-center gap-x-1.5 rounded-md bg-blue-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 dark:bg-blue-500 dark:shadow-none dark:hover:bg-blue-400 dark:focus-visible:outline-blue-500" do %>
+                  Acknowledge
+									<svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="-ml-0.5 size-5">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd" />
+                  </svg>
+                <% end %>
+							<% end %>
+						</td>
+					</tr>
+				<% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <% end %>
