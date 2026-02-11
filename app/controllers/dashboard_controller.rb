@@ -1,7 +1,5 @@
 class DashboardController < ApplicationController
-  before_action :require_employee!
-
   def show
-    @shifts = current_user.shifts.order(:start_time)
+    @shifts = current_user.scheduler? ? Shift.all.order(:start_time) : current_user.shifts.order(:start_time)
   end
 end

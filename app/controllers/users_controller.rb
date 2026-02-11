@@ -6,7 +6,9 @@ class UsersController < ApplicationController
     @users = User.order(:name)
   end
 
-  def show; end
+  def show
+    @recent_shifts = @user.shifts.order(start_time: :desc).limit(5)
+  end
 
   def new
     @user = User.new
@@ -46,6 +48,9 @@ class UsersController < ApplicationController
   def user_params
     permitted_params = %i[name email employee_id password password_confirmation]
     permitted_params << :role if current_user&.scheduler?
-    params.require(:user).permit(permitted_params)
+    p = params.require(:user).permit(permitted_params)
+    p.delete(:password) if p[:password].blank?
+    p.delete(:password_confirmation) if p[:password_confirmation].blank?
+    p
   end
 end
