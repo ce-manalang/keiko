@@ -83,17 +83,43 @@
 							data-action="click->users-filter#navigate"
 							data-url="<%= user_path(user) %>">
 						<td class="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-0 dark:text-white">
-							<%= link_to user.name, user_path(user), class: "hover:underline" %>
-							<dl class="font-normal lg:hidden">
-								<dt class="sr-only">Email</dt>
-								<dd class="mt-1 truncate text-gray-700 dark:text-gray-300"><%= user.email %></dd>
-								<dt class="sr-only sm:hidden">Employee ID</dt>
-								<dd class="mt-1 truncate text-gray-500 sm:hidden dark:text-gray-400"><%= user.employee_id %></dd>
+							<div class="flex items-center">
+								<% if user.image_url.present? %>
+									<div class="mr-3 shrink-0">
+										<%= image_tag user.image_url, class: "h-8 w-8 rounded-full object-cover", alt: user.name %>
+									</div>
+								<% else %>
+									<div class="mr-3 shrink-0 h-8 w-8 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+										<svg class="h-5 w-5 text-gray-400" fill="currentColor" viewBox="20 20 20 20">
+											<path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+										</svg>
+									</div>
+								<% end %>
+								<div>
+									<%= link_to user.name, user_path(user), class: "hover:underline" %>
+									<dl class="font-normal lg:hidden">
+										<dt class="sr-only">Email</dt>
+										<dd class="mt-1 truncate text-gray-700 dark:text-gray-300"><%= user.email %></dd>
+										<dt class="sr-only sm:hidden">Employee ID</dt>
+										<dd class="mt-1 truncate text-gray-500 sm:hidden dark:text-gray-400"><%= user.employee_id %></dd>
+										<dt class="sr-only sm:hidden">Role</dt>
+										<dd class="mt-1 truncate text-gray-500 sm:hidden dark:text-gray-400">
+											<% if user.employee? %>
+												<span class="uppercase inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10 dark:bg-purple-400/10 dark:text-purple-400 dark:ring-purple-400/30">
+													<%= user.role %>
+												</span>
+											<% else %>
+											<span class="uppercase inline-flex items-center rounded-md bg-pink-50 px-2 py-1 text-xs font-medium text-pink-700 ring-1 ring-inset ring-pink-700/10 dark:bg-pink-400/10 dark:text-pink-400 dark:ring-pink-400/20">
+												<%= user.role %>
+											</span>
+										<% end %>
+										</dd>
 							</dl>
-						</td>
-						<td class="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell dark:text-gray-400"><%= user.email %></td>
+						</div>
+					</td>
+					<td class="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell dark:text-gray-400"><%= user.email %></td>
 						<td class="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell dark:text-gray-400"><%= user.employee_id %></td>
-						<td class="px-3 py-4 text-sm text-gray-500 dark:text-gray-400">
+						<td class="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell dark:text-gray-400">
 							<% if user.employee? %>
 								<span class="uppercase inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10 dark:bg-purple-400/10 dark:text-purple-400 dark:ring-purple-400/30">
 									<%= user.role %>

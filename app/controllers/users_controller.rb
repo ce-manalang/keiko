@@ -46,7 +46,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    permitted_params = %i[name email employee_id password password_confirmation]
+    permitted_params = %i[name email employee_id password password_confirmation image_url]
     permitted_params << :role if current_user&.scheduler?
     p = params.require(:user).permit(permitted_params)
     p.delete(:password) if p[:password].blank?

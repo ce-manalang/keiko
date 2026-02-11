@@ -1,8 +1,11 @@
 <div class="-mx-4 mt-8 sm:-mx-0">
-	<table class="min-w-full divide-y divide-gray-300 dark:divide-white/15">
+	<table class="min-w-full divide-y divide-gray-300 dark:divide-white/15" data-controller="clickable">
 		<thead>
 			<tr>
 				<th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0 dark:text-white">
+					ID
+				</th>
+				<th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">
 					<span class="hidden lg:block">Start</span>
 					<span class="lg:hidden">Schedule</span>
 				</th>
@@ -16,8 +19,14 @@
 
 		<tbody class="divide-y divide-gray-200 bg-white dark:divide-white/10 dark:bg-gray-900">
 			<% shifts.each do |shift| %>
-				<tr id="<%= dom_id(shift) %>">
-					<td class="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-0 dark:text-white">
+				<tr id="<%= dom_id(shift) %>" 
+						class="hover:bg-slate-50 cursor-pointer dark:hover:bg-white/5"
+						data-action="click->clickable#navigate"
+						data-url="<%= user_shift_path(user, shift) %>">
+					<td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0 dark:text-white">
+						#<%= shift.id %>
+					</td>
+					<td class="w-full max-w-0 py-4 px-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none dark:text-white">
 						<%= shift.start_time.strftime("%b %d %H:%M") %>
 						<dl class="font-normal lg:hidden">
 							<dt class="sr-only">End</dt>

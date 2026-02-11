@@ -18,7 +18,7 @@ class ShiftsController < ApplicationController
 
     if @shift.save
       respond_to do |format|
-        format.turbo_stream { redirect_to user_shifts_path(@user), status: :see_other, notice: "Shift created." }
+        format.turbo_stream
         format.html { redirect_to user_shifts_path(@user), notice: "Shift created." }
       end
     else
@@ -31,7 +31,7 @@ class ShiftsController < ApplicationController
   def update
     if @shift.update(shift_params)
       respond_to do |format|
-        format.turbo_stream { redirect_to user_shifts_path(@user), status: :see_other, notice: "Shift updated." }
+        format.turbo_stream
         format.html { redirect_to user_shifts_path(@user), notice: "Shift updated." }
       end
     else
@@ -43,7 +43,7 @@ class ShiftsController < ApplicationController
     @shift.destroy
 
     respond_to do |format|
-      format.turbo_stream { redirect_to user_shifts_path(@user), status: :see_other, notice: "Shift deleted." }
+      format.turbo_stream
       format.html { redirect_to user_shifts_path(@user), notice: "Shift deleted." }
     end
   end

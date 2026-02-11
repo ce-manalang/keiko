@@ -31,7 +31,7 @@
     </div>
   </div>
   <div class="-mx-4 mt-8 sm:-mx-0">
-    <table class="min-w-full divide-y divide-gray-300 dark:divide-white/15">
+    <table class="min-w-full divide-y divide-gray-300 dark:divide-white/15" data-controller="clickable">
       <thead>
         <tr>
           <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0 dark:text-white">
@@ -49,7 +49,7 @@
       </thead>
       <tbody class="divide-y divide-gray-200 bg-white dark:divide-white/10 dark:bg-gray-900">
 				<% @shifts.each do |shift| %>
-					<tr id="<%= dom_id(shift) %>" class="hover:bg-gray-50 dark:hover:bg-white/5 cursor-pointer" onclick="window.location='<%= user_shift_path(shift.user, shift) %>'">
+					<tr id="<%= dom_id(shift) %>" class="hover:bg-gray-50 dark:hover:bg-white/5 cursor-pointer" data-action="click->clickable#navigate" data-url="<%= user_shift_path(shift.user, shift) %>">
 						<td class="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-0 dark:text-white">
 							#<%= shift.id %>
 							<dl class="font-normal lg:hidden">
@@ -73,10 +73,10 @@
 							<% end %>
 						</td>
 
-						<td class="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0" onclick="event.stopPropagation()">
+						<td class="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
 							<% unless shift.acknowledged? %>
-                <%= link_to acknowledge_user_shift_path(shift.user, shift),
-                    data: { turbo_method: :patch },
+                <%= button_to acknowledge_user_shift_path(shift.user, shift),
+                    method: :patch,
                     class: "inline-flex items-center gap-x-1.5 rounded-md bg-blue-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 dark:bg-blue-500 dark:shadow-none dark:hover:bg-blue-400 dark:focus-visible:outline-blue-500" do %>
                   <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="-ml-0.5 size-5">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd" />
