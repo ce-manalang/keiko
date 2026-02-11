@@ -1,4 +1,269 @@
-<div>
-  <h1 class="font-bold text-4xl">Shifts#show</h1>
-  <p>Find me in app/views/users/show.html.erb</p>
+<%= render "devise/shared/container" do %>
+
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+  <nav aria-label="Breadcrumb" class="flex overflow-x-auto">
+    <ol role="list" class="flex items-center space-x-4 flex-nowrap">
+      <li>
+        <div>
+          <a href="<%= dashboard_path %>" class="text-gray-400 hover:text-gray-500 dark:text-gray-500 dark:hover:text-gray-300">
+            <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="size-5 shrink-0">
+              <path d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z" clip-rule="evenodd" fill-rule="evenodd" />
+            </svg>
+            <span class="sr-only">Home</span>
+          </a>
+        </div>
+      </li>
+      
+      <% if current_user.employee? %>
+        <li>
+          <div class="flex items-center">
+            <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="size-5 shrink-0 text-gray-400 dark:text-gray-500">
+              <path d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" fill-rule="evenodd" />
+            </svg>
+            <a href="<%= my_shifts_path %>" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">My Shifts</a>
+          </div>
+        </li>
+        <li>
+          <div class="flex items-center">
+            <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="size-5 shrink-0 text-gray-400 dark:text-gray-500">
+              <path d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" fill-rule="evenodd" />
+            </svg>
+            <span aria-current="page" class="ml-4 text-sm font-medium text-gray-500 dark:text-gray-400">Shift #<%= @shift.id %></span>
+          </div>
+        </li>
+      <% else %>
+        <li>
+          <div class="flex items-center">
+            <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="size-5 shrink-0 text-gray-400 dark:text-gray-500">
+              <path d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" fill-rule="evenodd" />
+            </svg>
+            <a href="<%= users_path %>" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">Employees</a>
+          </div>
+        </li>
+        <li>
+          <div class="flex items-center">
+            <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="size-5 shrink-0 text-gray-400 dark:text-gray-500">
+              <path d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" fill-rule="evenodd" />
+            </svg>
+            <a href="<%= user_path(@shift.user) %>" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"><%= @shift.user.name %></a>
+          </div>
+        </li>
+        <li>
+          <div class="flex items-center">
+            <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="size-5 shrink-0 text-gray-400 dark:text-gray-500">
+              <path d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" fill-rule="evenodd" />
+            </svg>
+            <a href="<%= user_shifts_path(@shift.user) %>" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">Shifts</a>
+          </div>
+        </li>
+        <li>
+          <div class="flex items-center">
+            <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="size-5 shrink-0 text-gray-400 dark:text-gray-500">
+              <path d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" fill-rule="evenodd" />
+            </svg>
+            <span aria-current="page" class="ml-4 text-sm font-medium text-gray-500 dark:text-gray-400">Shift #<%= @shift.id %></span>
+          </div>
+        </li>
+      <% end %>
+    </ol>
+  </nav>
+  
+  <div class="flex items-center gap-x-4 sm:gap-x-6 w-full md:w-auto justify-end">
+    <% if current_user.scheduler? %>
+      <span class="isolate inline-flex rounded-md shadow-sm dark:shadow-none">
+        <%= link_to "Edit", edit_user_shift_path(@shift.user, @shift), class: "relative inline-flex items-center rounded-l-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10 dark:bg-white/10 dark:text-white dark:ring-gray-700 dark:hover:bg-white/20" %>
+        <%= link_to "Delete", user_shift_path(@shift.user, @shift), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "relative -ml-px inline-flex items-center rounded-r-md bg-white px-3 py-2 text-sm font-semibold text-red-600 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10 dark:bg-red-500/10 dark:text-red-400 dark:ring-gray-700 dark:hover:bg-red-500/20" %>
+      </span>
+    <% end %>
+    
+    <% if current_user.employee? && !@shift.acknowledged? %>
+			<%= link_to acknowledge_user_shift_path(@shift.user, @shift),
+					data: { turbo_method: :patch },
+					class: "inline-flex items-center gap-x-1.5 rounded-md bg-blue-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 dark:bg-blue-500 dark:shadow-none dark:hover:bg-blue-400 dark:focus-visible:outline-blue-500" do %>
+				<svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="-ml-0.5 size-5">
+					<path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm3.857-9.809a.75.75 0 0 0-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 1 0-1.06 1.061l2.5 2.5a.75.75 0 0 0 1.137-.089l4-5.5Z" clip-rule="evenodd" />
+				</svg>
+				Acknowledge
+			<% end %>
+    <% end %>
+  </div>
 </div>
+
+<main>
+
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto grid max-w-2xl grid-cols-1 grid-rows-1 items-start gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+      <!-- Shift summary -->
+      <div class="lg:col-start-3 lg:row-end-1">
+        <h2 class="sr-only">Summary</h2>
+        <div class="rounded-lg bg-gray-50 shadow-sm outline outline-1 outline-gray-900/5 dark:bg-gray-800/50 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10">
+          <dl class="flex flex-wrap">
+            <div class="flex-auto pl-6 pt-6">
+              <dt class="text-sm/6 font-semibold text-gray-900 dark:text-white">Duration</dt>
+              <dd class="mt-1 text-base font-semibold text-gray-900 dark:text-white">
+                <%= distance_of_time_in_words(@shift.start_time, @shift.end_time) %>
+              </dd>
+            </div>
+            <div class="flex-none self-end px-6 pt-4">
+              <dt class="sr-only">Status</dt>
+              <% if @shift.acknowledged? %>
+                <dd class="rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-600/20 dark:bg-green-500/10 dark:text-green-500 dark:ring-green-500/30">Acknowledged</dd>
+              <% else %>
+                <dd class="rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-600/20 dark:bg-gray-400/10 dark:text-gray-400 dark:ring-gray-400/30">Pending</dd>
+              <% end %>
+            </div>
+            <div class="mt-6 flex w-full flex-none gap-x-4 border-t border-gray-900/5 px-6 pt-6 dark:border-white/10">
+							<% if current_user.scheduler? %>
+              <dt class="mb-4 flex-none">
+                <span class="sr-only">Employee</span>
+                <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 text-gray-400 dark:text-gray-500">
+                  <path d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-5.5-2.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM10 12a5.99 5.99 0 0 0-4.793 2.39A6.483 6.483 0 0 0 10 16.5a6.483 6.483 0 0 0 4.793-2.11A5.99 5.99 0 0 0 10 12Z" clip-rule="evenodd" fill-rule="evenodd" />
+                </svg>
+              </dt>
+              <dd class="text-sm/6 font-medium text-gray-900 dark:text-white"><%= @shift.user.name %></dd>
+							<% end %>
+            </div>
+            <div class="flex w-full flex-none gap-x-4 px-6">
+              <dt class="flex-none">
+                <span class="sr-only">Start time</span>
+                <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 text-gray-400 dark:text-gray-500">
+                  <path d="M5.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H6a.75.75 0 0 1-.75-.75V12ZM6 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H6ZM7.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H8a.75.75 0 0 1-.75-.75V12ZM8 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H8ZM9.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V10ZM10 11.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H10ZM9.25 14a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V14ZM12 9.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V10a.75.75 0 0 0-.75-.75H12ZM11.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H12a.75.75 0 0 1-.75-.75V12ZM12 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H12ZM13.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H14a.75.75 0 0 1-.75-.75V10ZM14 11.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H14Z" />
+                  <path d="M5.75 2a.75.75 0 0 1 .75.75V4h7V2.75a.75.75 0 0 1 1.5 0V4h.25A2.75 2.75 0 0 1 18 6.75v8.5A2.75 2.75 0 0 1 15.25 18H4.75A2.75 2.75 0 0 1 2 15.25v-8.5A2.75 2.75 0 0 1 4.75 4H5V2.75A.75.75 0 0 1 5.75 2Zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75Z" clip-rule="evenodd" fill-rule="evenodd" />
+                </svg>
+              </dt>
+              <dd class="text-sm/6 text-gray-500 dark:text-gray-400">
+                <time datetime="<%= @shift.start_time.iso8601 %>"><%= @shift.start_time.strftime("%B %d, %Y at %l:%M %p") %></time>
+              </dd>
+            </div>
+            <div class="mt-4 mb-4 flex w-full flex-none gap-x-4 px-6">
+              <dt class="flex-none">
+                <span class="sr-only">End time</span>
+                <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true" class="h-6 w-5 text-gray-400 dark:text-gray-500">
+                  <path d="M10 2a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 10 2ZM10 15a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 10 15ZM10 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM15.657 5.404a.75.75 0 1 0-1.06-1.06l-1.061 1.06a.75.75 0 0 0 1.06 1.06l1.06-1.06ZM6.464 14.596a.75.75 0 1 0-1.06-1.06l-1.06 1.06a.75.75 0 0 0 1.06 1.06l1.06-1.06ZM18 10a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 18 10ZM5 10a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 5 10ZM14.596 15.657a.75.75 0 0 0 1.06-1.06l-1.06-1.061a.75.75 0 1 0-1.06 1.06l1.06 1.06ZM5.404 6.464a.75.75 0 0 0 1.06-1.06l-1.06-1.06a.75.75 0 1 0-1.061 1.06l1.06 1.06Z" />
+                </svg>
+              </dt>
+              <dd class="text-sm/6 text-gray-500 dark:text-gray-400">
+                <time datetime="<%= @shift.end_time.iso8601 %>"><%= @shift.end_time.strftime("%B %d, %Y at %l:%M %p") %></time>
+              </dd>
+            </div>
+          </dl>
+          <% if current_user.employee? %>
+            <div class="border-t border-gray-900/5 px-6 py-6 dark:border-white/10">
+              <%= link_to my_shifts_path, class: "text-sm/6 font-semibold text-gray-900 dark:text-white" do %>
+                View all my shifts <span aria-hidden="true">&rarr;</span>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Shift details -->
+      <div class="-mx-4 px-4 py-8 shadow-sm ring-1 ring-gray-900/5 sm:mx-0 sm:rounded-lg sm:px-8 sm:pb-14 lg:col-span-2 lg:row-span-2 lg:row-end-2 xl:px-16 xl:pb-20 xl:pt-16 dark:shadow-none dark:ring-white/10">
+        <h2 class="text-base font-semibold text-gray-900 dark:text-white">Shift Details</h2>
+        <dl class="mt-6 grid grid-cols-1 text-sm/6 sm:grid-cols-2">
+          <div class="sm:pr-4">
+            <dt class="inline text-gray-500 dark:text-gray-400">Scheduled for</dt>
+            <dd class="inline text-gray-700 dark:text-gray-300"><time datetime="<%= @shift.start_time.iso8601 %>"><%= @shift.start_time.strftime("%B %d, %Y") %></time></dd>
+          </div>
+          <div class="mt-2 sm:mt-0 sm:pl-4">
+            <dt class="inline text-gray-500 dark:text-gray-400">Status</dt>
+            <dd class="inline text-gray-700 dark:text-gray-300">
+              <% if @shift.acknowledged? %>
+                <span class="text-green-600 dark:text-green-400">Acknowledged</span>
+              <% else %>
+                <span class="text-gray-600 dark:text-gray-400">Pending Acknowledgment</span>
+              <% end %>
+            </dd>
+          </div>
+					<% if current_user.scheduler? %>
+						<div class="mt-6 border-t border-gray-900/5 pt-6 sm:pr-4 dark:border-white/10">
+							<dt class="font-semibold text-gray-900 dark:text-white">Employee</dt>
+							<dd class="mt-2 text-gray-500 dark:text-gray-400">
+								<span class="font-medium text-gray-900 dark:text-white"><%= @shift.user.name %></span><br />
+								<%= @shift.user.email %>
+							</dd>
+						</div>
+						<div class="mt-8 sm:mt-6 sm:border-t sm:border-gray-900/5 sm:pl-4 sm:pt-6 dark:sm:border-white/10">
+							<dt class="font-semibold text-gray-900 dark:text-white">Time</dt>
+							<dd class="mt-2 text-gray-500 dark:text-gray-400">
+								<span class="font-medium text-gray-900 dark:text-white">Start:</span> <%= @shift.start_time.strftime("%l:%M %p") %><br />
+								<span class="font-medium text-gray-900 dark:text-white">End:</span> <%= @shift.end_time.strftime("%l:%M %p") %>
+							</dd>
+						</div>
+					<% else %>
+						<div class="mt-6 border-t border-gray-900/5 pt-6 sm:pr-4 dark:border-white/10">
+							<dt class="font-semibold text-gray-900 dark:text-white">Time</dt>
+							<dd class="mt-2 text-gray-500 dark:text-gray-400">
+								<span class="font-medium text-gray-900 dark:text-white">Start:</span> <%= @shift.start_time.strftime("%l:%M %p") %><br />
+								<span class="font-medium text-gray-900 dark:text-white">End:</span> <%= @shift.end_time.strftime("%l:%M %p") %>
+							</dd>
+						</div>
+					<% end %>
+        </dl>
+        
+        <% if @shift.notes.present? %>
+          <div class="mt-16">
+            <h3 class="text-base font-semibold text-gray-900 dark:text-white">Notes</h3>
+            <div class="mt-4 rounded-lg bg-gray-50 p-4 text-sm text-gray-700 dark:bg-gray-800/50 dark:text-gray-300">
+              <%= @shift.notes %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="lg:col-start-3">
+        <!-- Activity feed -->
+        <h2 class="text-sm/6 font-semibold text-gray-900 dark:text-white">Activity</h2>
+        <ul role="list" class="mt-6 space-y-6">
+          <li class="relative flex gap-x-4">
+            <div class="absolute -bottom-6 left-0 top-0 flex w-6 justify-center">
+              <div class="w-px bg-gray-200 dark:bg-white/10"></div>
+            </div>
+            <div class="relative flex size-6 flex-none items-center justify-center bg-white dark:bg-gray-900">
+              <div class="size-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300 dark:bg-white/10 dark:ring-white/20"></div>
+            </div>
+            <p class="flex-auto py-0.5 text-xs/5 text-gray-500 dark:text-gray-400">
+              <span class="font-medium text-gray-900 dark:text-white">Shift created</span>
+            </p>
+            <time datetime="<%= @shift.created_at.iso8601 %>" class="flex-none py-0.5 text-xs/5 text-gray-500 dark:text-gray-400">
+              <%= time_ago_in_words(@shift.created_at) %> ago
+            </time>
+          </li>
+          
+          <% if @shift.acknowledged? %>
+            <li class="relative flex gap-x-4">
+              <div class="absolute left-0 top-0 flex h-6 w-6 justify-center">
+                <div class="w-px bg-gray-200 dark:bg-white/10"></div>
+              </div>
+              <div class="relative flex size-6 flex-none items-center justify-center bg-white dark:bg-gray-900">
+                <svg viewBox="0 0 24 24" fill="currentColor" data-slot="icon" aria-hidden="true" class="size-6 text-green-600 dark:text-green-500">
+                  <path d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" fill-rule="evenodd" />
+                </svg>
+              </div>
+              <p class="flex-auto py-0.5 text-xs/5 text-gray-500 dark:text-gray-400">
+                <span class="font-medium text-gray-900 dark:text-white"><%= current_user.scheduler? ? @shift.user.name : "You" %></span> acknowledged the shift
+              </p>
+              <time datetime="<%= @shift.updated_at.iso8601 %>" class="flex-none py-0.5 text-xs/5 text-gray-500 dark:text-gray-400">
+                <%= time_ago_in_words(@shift.updated_at) %> ago
+              </time>
+            </li>
+          <% else %>
+            <li class="relative flex gap-x-4">
+              <div class="absolute left-0 top-0 flex h-6 w-6 justify-center">
+                <div class="w-px bg-gray-200 dark:bg-white/10"></div>
+              </div>
+              <div class="relative flex size-6 flex-none items-center justify-center bg-white dark:bg-gray-900">
+                <div class="size-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300 dark:bg-white/10 dark:ring-white/20"></div>
+              </div>
+              <p class="flex-auto py-0.5 text-xs/5 text-gray-500 dark:text-gray-400">
+                Waiting for <span class="font-medium text-gray-900 dark:text-white"><%= current_user.scheduler? ? @shift.user.name : "you" %></span> to acknowledge
+              </p>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</main>
+
+<% end %>

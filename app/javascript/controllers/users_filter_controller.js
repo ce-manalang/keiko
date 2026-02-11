@@ -14,4 +14,13 @@ export default class extends Controller {
       row.classList.toggle("hidden", !text.includes(query))
     })
   }
+
+  navigate(event) {
+    if (event.target.closest("a") || event.target.closest("button")) return
+    
+    const url = event.currentTarget.dataset.url
+    if (url) {
+      Turbo.visit(url)
+    }
+  }
 }

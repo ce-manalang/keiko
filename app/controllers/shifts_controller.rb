@@ -1,7 +1,12 @@
 class ShiftsController < ApplicationController
-  before_action :require_scheduler!, except: :acknowledge
-  before_action :set_user
+  before_action :require_scheduler!, except: [ :acknowledge, :mine, :show ]
+  before_action :require_employee!, only: :mine
+  before_action :set_user, except: :mine
   before_action :set_shift, only: %i[edit update destroy]
+
+  def mine
+    @shifts = current_user.shifts.order(:start_time)
+  end
 
   def index
     @shifts = @user.shifts.order(:start_time)
@@ -49,7 +54,7 @@ class ShiftsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_to dashboard_path }
+      format.html { redirect_to mine_shifts_path }
     end
   end
 
