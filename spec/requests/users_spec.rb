@@ -1,16 +1,32 @@
 require 'rails_helper'
 
 RSpec.describe "Users", type: :request do
-  describe "GET /index" do
+  include Devise::Test::IntegrationHelpers
+
+  let(:scheduler) do
+    User.create!(
+      name: "Admin",
+      email: "admin@example.com",
+      password: "password",
+      employee_id: "S1",
+      role: :scheduler
+    )
+  end
+
+  before do
+    sign_in scheduler
+  end
+
+  describe "GET /" do
     it "returns http success" do
-      get "/users/index"
+      get "/users"
       expect(response).to have_http_status(:success)
     end
   end
 
   describe "GET /show" do
     it "returns http success" do
-      get "/users/show"
+      get "/users/#{scheduler.id}"
       expect(response).to have_http_status(:success)
     end
   end
@@ -22,31 +38,31 @@ RSpec.describe "Users", type: :request do
     end
   end
 
-  describe "GET /create" do
+  describe "POST /create" do
     it "returns http success" do
-      get "/users/create"
-      expect(response).to have_http_status(:success)
+      post "/users", params: { user: { name: "New User", email: "new@test.com", password: "password", employee_id: "E99", role: "employee" } }
+      expect(response).to have_http_status(:redirect)
     end
   end
 
   describe "GET /edit" do
     it "returns http success" do
-      get "/users/edit"
+      get "/users/#{scheduler.id}/edit"
       expect(response).to have_http_status(:success)
     end
   end
 
-  describe "GET /update" do
+  describe "PATCH /update" do
     it "returns http success" do
-      get "/users/update"
-      expect(response).to have_http_status(:success)
+      patch "/users/#{scheduler.id}", params: { user: { name: "Updated Name" } }
+      expect(response).to have_http_status(:redirect)
     end
   end
 
-  describe "GET /destroy" do
+  describe "DELETE /destroy" do
     it "returns http success" do
-      get "/users/destroy"
-      expect(response).to have_http_status(:success)
+      delete "/users/#{scheduler.id}"
+      expect(response).to have_http_status(:redirect)
     end
   end
 end

@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resources :shifts do
       member do
         patch :acknowledge
+        patch :add_employee_note
       end
     end
   end

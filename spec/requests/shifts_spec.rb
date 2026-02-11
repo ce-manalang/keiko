@@ -26,7 +26,7 @@ RSpec.describe "Shifts", type: :request do
 
     it "allows employee to acknowledge their own shift" do
       patch acknowledge_user_shift_path(user, shift)
-      expect(response).to redirect_to(dashboard_path)
+      expect(response).to redirect_to(my_shifts_path)
       expect(shift.reload.acknowledged).to be true
     end
   end

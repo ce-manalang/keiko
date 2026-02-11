@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_07_090034) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_11_144027) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "shifts", force: :cascade do |t|
     t.boolean "acknowledged"
     t.datetime "created_at", null: false
+    t.text "employee_notes"
     t.datetime "end_time"
     t.text "notes"
     t.datetime "start_time"

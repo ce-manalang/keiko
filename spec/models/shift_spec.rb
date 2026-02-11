@@ -6,7 +6,9 @@ RSpec.describe Shift, type: :model do
       name: "Test",
       email: "test@example.com",
       employee_id: "E1",
-      role: :employee
+      role: :employee,
+      password: "password",
+      password_confirmation: "password"
     )
   end
 

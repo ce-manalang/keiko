@@ -1,5 +1,5 @@
 class ShiftsController < ApplicationController
-  before_action :require_scheduler!, except: [ :acknowledge, :mine, :show ]
+  before_action :require_scheduler!, except: [ :acknowledge, :mine, :show, :add_employee_note ]
   before_action :require_employee!, only: :mine
   before_action :set_user, except: :mine
   before_action :set_shift, only: %i[edit update destroy]
@@ -18,7 +18,7 @@ class ShiftsController < ApplicationController
 
     if @shift.save
       respond_to do |format|
-        format.turbo_stream
+        format.turbo_stream { redirect_to user_shifts_path(@user), status: :see_other, notice: "Shift created." }
         format.html { redirect_to user_shifts_path(@user), notice: "Shift created." }
       end
     else
@@ -31,7 +31,7 @@ class ShiftsController < ApplicationController
   def update
     if @shift.update(shift_params)
       respond_to do |format|
-        format.turbo_stream
+        format.turbo_stream { redirect_to user_shifts_path(@user), status: :see_other, notice: "Shift updated." }
         format.html { redirect_to user_shifts_path(@user), notice: "Shift updated." }
       end
     else
@@ -43,7 +43,7 @@ class ShiftsController < ApplicationController
     @shift.destroy
 
     respond_to do |format|
-      format.turbo_stream
+      format.turbo_stream { redirect_to user_shifts_path(@user), status: :see_other, notice: "Shift deleted." }
       format.html { redirect_to user_shifts_path(@user), notice: "Shift deleted." }
     end
   end
@@ -53,8 +53,8 @@ class ShiftsController < ApplicationController
     @shift.update!(acknowledged: true)
 
     respond_to do |format|
-      format.turbo_stream
-      format.html { redirect_to mine_shifts_path }
+      format.turbo_stream { redirect_to my_shifts_path, status: :see_other }
+      format.html { redirect_to my_shifts_path }
     end
   end
 
@@ -65,6 +65,18 @@ class ShiftsController < ApplicationController
       else
         current_user.shifts.find(params[:id])
       end
+  end
+
+  def add_employee_note
+    @shift = current_user.shifts.find(params[:id])
+    if @shift.update(employee_note_params)
+      respond_to do |format|
+        format.turbo_stream { redirect_to user_shift_path(@user, @shift), status: :see_other, notice: "Note added." }
+        format.html { redirect_to user_shift_path(@user, @shift), notice: "Note added." }
+      end
+    else
+      render :show, status: :unprocessable_entity
+    end
   end
 
   private
@@ -78,6 +90,10 @@ class ShiftsController < ApplicationController
   end
 
   def shift_params
-    params.require(:shift).permit(:start_time, :end_time, :notes)
+    params.require(:shift).permit(:start_time, :end_time, :notes, :employee_notes)
+  end
+
+  def employee_note_params
+    params.require(:shift).permit(:employee_notes)
   end
 end
