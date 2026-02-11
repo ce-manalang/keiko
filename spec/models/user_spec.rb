@@ -6,7 +6,9 @@ RSpec.describe User, type: :model do
       name: "Test User",
       email: "test@example.com",
       employee_id: "E001",
-      role: :employee
+      role: :employee,
+      password: "password",
+      password_confirmation: "password"
     )
   end
 

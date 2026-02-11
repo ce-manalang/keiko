@@ -56,6 +56,7 @@ RSpec.describe "Scheduler assigns shift and employee acknowledges", type: :syste
     expect(page).to have_content("Pending")
 
     # --- Employee acknowledges shift ---
+    click_link "Shift ##{Shift.last.id}"
     click_link "Acknowledge"
 
     # Turbo update should show acknowledged state
