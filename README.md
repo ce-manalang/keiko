@@ -68,12 +68,10 @@ Schedulers can:
 
 ### Screenshots
 
-*Add screenshots here after deployment.*
-
-```
-/docs/screenshots/scheduler-users.png
-/docs/screenshots/scheduler-shifts.png
-```
+|  |
+|----------|
+| <img width="1440" height="754" alt="Screenshot 2026-02-13 at 9 36 35 AM" src="https://github.com/user-attachments/assets/509f223e-5e6a-4649-b74c-8efc1c0999ae" /> |
+| <img width="1431" height="751" alt="Screenshot 2026-02-13 at 9 37 28 AM" src="https://github.com/user-attachments/assets/e8ad1eb0-1e86-4503-b597-6f4c48cab03d" /> |
 
 ---
 
@@ -90,11 +88,9 @@ Employees can:
 
 ### Screenshots
 
-*Add screenshots here after deployment.*
-
-```
-/docs/screenshots/employee-dashboard.png
-```
+|  |
+|----------|
+| <img width="1440" height="754" alt="Screenshot 2026-02-13 at 9 38 41 AM" src="https://github.com/user-attachments/assets/06bb19d1-9981-4ea1-964b-73aaf296f750" /> |
 
 ---
 
