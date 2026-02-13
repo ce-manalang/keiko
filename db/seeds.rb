@@ -21,15 +21,15 @@ scheduler = User.create!(
   role: :scheduler,
   password: "password",
   password_confirmation: "password",
-  image_url: "https://github-production-user-asset-6210df.s3.amazonaws.com/353784/549137511-8bb5a193-88b2-4044-89a9-f817ded9c2ad.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20260213%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260213T021329Z&X-Amz-Expires=300&X-Amz-Signature=f919ca0f2eab3d9dcdaa64a1bf3804c5d78077d1cbcdb32064f0a705a7088d5f&X-Amz-SignedHeaders=host",
+  image_url: "https://keiko-s3.s3.us-east-2.amazonaws.com/keiko.jpg",
 )
 
 puts "Created scheduler: #{scheduler.email}"
 
 # --- Create Employees ---
 employees = [
-  { name: "Alice Employee", email: "alice@keiko.test", employee_id: "E-001", image_url: "https://github-production-user-asset-6210df.s3.amazonaws.com/353784/549135931-f1167c59-e19e-4d78-b6d9-a3c31ef4685d.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20260213%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260213T021356Z&X-Amz-Expires=300&X-Amz-Signature=5c604f9aa3bb7bdeb459a6dc1276d0c175467dc9199c3f7d873a3ae1d51fae8d&X-Amz-SignedHeaders=host" },
-  { name: "Bob Employee",   email: "bob@keiko.test",   employee_id: "E-002", image_url: "https://github-production-user-asset-6210df.s3.amazonaws.com/353784/549137983-e7fbca58-900a-4e4e-9140-d81df25d5f87.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20260213%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260213T021427Z&X-Amz-Expires=300&X-Amz-Signature=d5c0b5806f383bc3c49a352358e0cd50fbe5554afc8d61c0bb23a5a7f1eeeaa6&X-Amz-SignedHeaders=host" }
+  { name: "Alice Employee", email: "alice@keiko.test", employee_id: "E-001", image_url: "https://keiko-s3.s3.us-east-2.amazonaws.com/sally.jpg" },
+  { name: "Bob Employee",   email: "bob@keiko.test",   employee_id: "E-002", image_url: "https://keiko-s3.s3.us-east-2.amazonaws.com/bert.jpg" }
 ].map do |attrs|
   User.create!(
     **attrs,
