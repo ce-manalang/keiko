@@ -50,6 +50,7 @@
       <% @shifts.limit(5).each do |shift| %>
         <%= link_to user_shift_path(shift.user, shift), class: "block" do %>
           <li class="relative flex gap-x-6 py-6 xl:static hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer">
+            <img src="<%= shift.user.image_url %>" alt="" class="size-8 p-1 flex-none rounded-full bg-white object-cover">
             <div class="flex-auto">
               <h3 class="pr-10 font-semibold text-gray-900 xl:pr-0 dark:text-white">Shift #<%= shift.id %></h3>
               <dl class="mt-2 flex flex-col text-gray-500 xl:flex-row dark:text-gray-400">

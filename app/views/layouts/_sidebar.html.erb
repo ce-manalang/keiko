@@ -1,0 +1,52 @@
+<el-dialog>
+  <dialog id="sidebar" class="m-0 p-0 backdrop:bg-transparent lg:hidden">
+    <el-dialog-backdrop class="fixed inset-0 bg-gray-900/80 transition-opacity duration-300 ease-linear data-[closed]:opacity-0"></el-dialog-backdrop>
+
+    <div tabindex="0" class="fixed inset-0 flex focus:outline focus:outline-0">
+      <el-dialog-panel class="group/dialog-panel relative mr-16 flex w-full max-w-xs flex-1 transform transition duration-300 ease-in-out data-[closed]:-translate-x-full">
+        <div class="absolute left-full top-0 flex w-16 justify-center pt-5 duration-300 ease-in-out group-data-[closed]/dialog-panel:opacity-0">
+          <button type="button" command="close" commandfor="sidebar" class="-m-2.5 p-2.5">
+            <span class="sr-only">Close sidebar</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6 text-white">
+              <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Mobile Sidebar -->
+        <div class="relative flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-4 dark:bg-gray-900 dark:ring dark:ring-white/10 dark:before:pointer-events-none dark:before:absolute dark:before:inset-0 dark:before:bg-black/10">
+          <div class="relative flex h-16 shrink-0 items-center">
+            <a href=<%= current_user ? dashboard_path : root_path %>><img src="/icon.svg" alt="Keiko" class="h-8 w-auto" /></a>
+          </div>
+          <nav class="relative flex flex-1 flex-col">
+            <ul role="list" class="flex flex-1 flex-col gap-y-7">
+              <li>
+                <ul role="list" class="-mx-2 space-y-1">
+                  <%= render "layouts/navigation_links" %>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </el-dialog-panel>
+    </div>
+  </dialog>
+</el-dialog>
+
+<!-- Static sidebar for desktop -->
+<div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+  <div class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4 dark:border-white/10 dark:bg-black/10">
+    <div class="flex h-16 shrink-0 items-center">
+      <a href=<%= current_user ? dashboard_path : root_path %>><img src="/icon.svg" alt="Keiko" class="h-8 w-auto" /></a>
+    </div>
+    <nav class="flex flex-1 flex-col">
+      <ul role="list" class="flex flex-1 flex-col gap-y-7">
+        <li>
+          <ul role="list" class="-mx-2 space-y-1">
+            <%= render "layouts/navigation_links" %>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

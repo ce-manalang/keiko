@@ -52,6 +52,11 @@
         <div class="rounded-lg bg-gray-50 shadow-sm outline outline-1 outline-gray-900/5 dark:bg-gray-800/50 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10">
           <dl class="flex flex-wrap">
             <div class="flex-auto pl-6 pt-6">
+              <% if @user.image_url.present? %>
+                <div class="mb-4">
+                  <%= image_tag @user.image_url, class: "h-24 w-24 rounded-full object-cover ring-2 ring-white dark:ring-gray-700", alt: @user.name %>
+                </div>
+              <% end %>
               <dt class="text-sm/6 font-semibold text-gray-900 dark:text-white">Role</dt>
               <dd class="mt-1 text-base font-semibold text-gray-900 dark:text-white">
                 <%= @user.role.titleize %>
